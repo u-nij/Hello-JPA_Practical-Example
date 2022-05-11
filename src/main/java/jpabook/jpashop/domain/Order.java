@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS") // "ORDER"로 네이밍할 수 없는 DB가  있음
@@ -11,10 +13,15 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MEMBER_ID")  // FK
-    private Long memberId;  // RDB에 맞춘 설계
+//    @Column(name = "MEMBER_ID")  // FK
+//    private Long memberId;  // RDB에 맞춘 설계
 
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID") // 단방향, FK 지정
     private Member member;  // 객체지향적 설계
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
@@ -29,13 +36,13 @@ public class Order {
         this.id = id;
     }
 
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
+//    public Long getMemberId() {
+//        return memberId;
+//    }
+//
+//    public void setMemberId(Long memberId) {
+//        this.memberId = memberId;
+//    }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -51,5 +58,10 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 }
