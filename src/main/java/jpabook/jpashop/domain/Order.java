@@ -20,6 +20,10 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID") // 단방향, FK 지정
     private Member member;  // 객체지향적 설계
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
