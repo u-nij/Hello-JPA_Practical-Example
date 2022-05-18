@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Category {
+public class Category extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -22,7 +22,7 @@ public class Category {
 
     @ManyToMany
     @JoinTable(name = "CATEGORY_ITEM",
-            joinColumns = @JoinColumn(name = "CATEGORY" ), // 나의 조인
+            joinColumns = @JoinColumn(name = "CATEGORY_ID" ), // 나의 조인
             inverseJoinColumns = @JoinColumn (name = "ITEM_ID")) // 반대쪽의 조인
     private List<Item> items = new ArrayList<>();
 }

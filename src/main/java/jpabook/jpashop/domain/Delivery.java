@@ -3,7 +3,7 @@ package jpabook.jpashop.domain;
 import javax.persistence.*;
 
 @Entity
-public class Delivery {
+public class Delivery extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -14,7 +14,7 @@ public class Delivery {
     private String zipcode;
     private DeliveryStatus status;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery") // 양방향
     private Order order;
 
 }
